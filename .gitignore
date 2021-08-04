@@ -1,5 +1,6 @@
 # Executables
 *.slxc
 *.eps
+*.asv
 
 .SimulinkProject/
