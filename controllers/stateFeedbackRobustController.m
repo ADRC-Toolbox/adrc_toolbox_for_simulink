@@ -4,9 +4,13 @@ function controlSignal = stateFeedbackRobustController(controlError,...
         controllerBandwidth,...
         estimatedExtendedState)
     
-    extendedK = poly(-controllerBandwidth * ones(1, dynamicsOrder));
-    K = extendedK(2:end);
+    K = calculateControllerGain(controllerBandwidth, dynamicsOrder);
     
     controlSignal = 1/inputGainParameter * (estimatedExtendedState(end) + ...
             K * [controlError; estimatedExtendedState(2:end-1)]);
+end
+
+function controllerGain = calculateControllerGain(controllerBandwidth, dynamicsOrder)
+    extendedControllerGain = poly(-controllerBandwidth * ones(1, dynamicsOrder));
+    controllerGain = extendedControllerGain(2:end);
 end
