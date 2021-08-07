@@ -4,6 +4,7 @@
 *.asv
 *.slxc
 *.autosave
+*v2017*
 
 .SimulinkProject/
 data_analysis/slprj/
