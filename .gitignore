@@ -2,5 +2,9 @@
 *.slxc
 *.eps
 *.asv
+*.slxc
+*.autosave
 
 .SimulinkProject/
+data_analysis/slprj/
+slprj/
