@@ -4,9 +4,12 @@
 *.asv
 *.slxc
 *.autosave
+*.bin
+*.elf
 *v2017*
 
 data_analysis/slprj/
 slprj/
 documentation/
 toolbox_folder/
+dc_motor_ert_rtw/
