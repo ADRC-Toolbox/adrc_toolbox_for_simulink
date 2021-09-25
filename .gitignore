@@ -6,6 +6,7 @@
 *.autosave
 *.bin
 *.elf
+*.ini
 *v2017*
 
 data_analysis/slprj/
