@@ -17,7 +17,7 @@ x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
 y = ylabel('$e_1,e_2$[cm]');
 set(y, 'Interpreter', 'latex');
-title('Control errors');
+title('Control errors', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_2 = figure;
@@ -28,7 +28,7 @@ x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
 y = ylabel('$u_1,u_2$[cm$^3$/s]');
 set(y, 'Interpreter', 'latex');
-title('Control signals');
+title('Control signals', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_3 = figure;
@@ -39,7 +39,7 @@ x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
 y = ylabel('$y_1,y_2$[cm]');
 set(y, 'Interpreter', 'latex');
-title('Outputs');
+title('Outputs', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 %% Plot results

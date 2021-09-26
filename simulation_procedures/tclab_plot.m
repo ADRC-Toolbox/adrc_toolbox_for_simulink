@@ -15,9 +15,9 @@ hold on; box on; grid on;
 legend('Location','northeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$e_1,e_2$[degC]');
+y = ylabel('$e_1,e_2$[$^\circ$C]');
 set(y, 'Interpreter', 'latex');
-title('Control errors');
+title('Control errors', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_2 = figure;
@@ -26,9 +26,9 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$u_1,u_2$[PWM]');
+y = ylabel('$u_1,u_2$');
 set(y, 'Interpreter', 'latex');
-title('Control signals');
+title('Control signals', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_3 = figure;
@@ -37,9 +37,9 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y_1,y_2$[degC]');
+y = ylabel('$y_1,y_2$[$^\circ$C]');
 set(y, 'Interpreter', 'latex');
-title('Outputs');
+title('Outputs', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 %% Plot results

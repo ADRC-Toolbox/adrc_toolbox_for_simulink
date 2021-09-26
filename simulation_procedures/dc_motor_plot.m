@@ -19,9 +19,9 @@ axes_1 = axes;
 hold on; box on; grid on;
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$e$');
+y = ylabel('$e$[imp/s]');
 set(y, 'Interpreter', 'latex');
-title('Control error');
+title('Control error', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_2 = figure;
@@ -31,7 +31,7 @@ x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
 y = ylabel('$u$');
 set(y, 'Interpreter', 'latex');
-title('Control signal');
+title('Control signal', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 fig_3 = figure;
@@ -40,9 +40,9 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y$');
+y = ylabel('$y^*$[imp/s]');
 set(y, 'Interpreter', 'latex');
-title('Output');
+title('Output', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
 
 %% Plot results for no measurements
