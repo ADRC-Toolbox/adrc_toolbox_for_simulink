@@ -6,7 +6,7 @@ function blkStruct = slblocks
     Browser.Library = 'adrc_toolbox_library';
     % 'mylib' is the name of the library
 
-    Browser.Name = 'ADRC toolbox';
+    Browser.Name = 'ADRC Toolbox';
     % 'My Library' is the library name that appears
     % in the Library Browser
 

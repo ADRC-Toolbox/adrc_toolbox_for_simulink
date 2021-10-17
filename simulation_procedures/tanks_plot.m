@@ -15,7 +15,7 @@ hold on; box on; grid on;
 legend('Location','northeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$e_1,e_2$[cm]');
+y = ylabel('$e_1,e_2$[m]');
 set(y, 'Interpreter', 'latex');
 title('Control errors', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
@@ -26,7 +26,7 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$u_1,u_2$[cm$^3$/s]');
+y = ylabel('$u_1,u_2$[m$^3$/s]');
 set(y, 'Interpreter', 'latex');
 title('Control signals', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
@@ -37,7 +37,7 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y_1,y_2$[cm]');
+y = ylabel('$y_1,y_2$[m]');
 set(y, 'Interpreter', 'latex');
 title('Outputs', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
@@ -49,19 +49,16 @@ readLogsoutData;
 figure(1);
 plot(axes_1, controlError1.Values.Time, controlError1.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 1 control error');
 plot(axes_1, controlError2.Values.Time, controlError2.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 2 control error');
-xlim([0 120]);
 
 figure(2);
 plot(axes_2, controlSignal1.Values.Time, controlSignal1.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 1 inlet flow');
 plot(axes_2, controlSignal2.Values.Time, controlSignal2.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 2 inlet flow');
-xlim([0 120]);
 
 figure(3);
 plot(axes_3, output1.Values.Time, output1.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 1 level');
 plot(axes_3, output2.Values.Time, output2.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Tank 2 level');
 plot(axes_3, desiredOutput1.Values.Time, desiredOutput1.Values.Data, 'k--', 'linewidth', 1.5, 'DisplayName', 'Tank 1 reference level'); 
 plot(axes_3, desiredOutput2.Values.Time, desiredOutput2.Values.Data, 'k-.', 'linewidth', 1.5, 'DisplayName', 'Tank 2 reference level');
-xlim([0 120]);
 
 %% Save figures
 
