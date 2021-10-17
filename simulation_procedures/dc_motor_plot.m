@@ -4,7 +4,7 @@ close all;
 clc;
 
 %% Load data
-load('dc_motor_data.mat')
+load('dc_motor_data_2.mat')
 controlSignal = get(data,'controlSignal');
 position = get(data,'position');
 velocity = get(data,'velocity');
@@ -19,7 +19,7 @@ axes_1 = axes;
 hold on; box on; grid on;
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$e$[imp/s]');
+y = ylabel('$e$[rad/s]');
 set(y, 'Interpreter', 'latex');
 title('Control error', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
@@ -40,7 +40,7 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y^*$[imp/s]');
+y = ylabel('$y^*$[rad/s]');
 set(y, 'Interpreter', 'latex');
 title('Output', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
