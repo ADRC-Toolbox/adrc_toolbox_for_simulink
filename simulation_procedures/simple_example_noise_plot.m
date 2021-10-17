@@ -36,7 +36,7 @@ hold on; box on; grid on;
 legend;
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y$');
+y = ylabel('$y^*$');
 set(y, 'Interpreter', 'latex');
 title('Output', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);

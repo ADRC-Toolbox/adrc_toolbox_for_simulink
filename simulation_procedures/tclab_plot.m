@@ -37,7 +37,7 @@ hold on; box on; grid on;
 legend('Location','southeast');
 x = xlabel('$t$[s]');
 set(x, 'Interpreter', 'latex');
-y = ylabel('$y_1,y_2$[$^\circ$C]');
+y = ylabel('$y_1^*,y_2^*$[$^\circ$C]');
 set(y, 'Interpreter', 'latex');
 title('Outputs', 'Interpreter', 'latex');
 set(gca, 'FontSize', defaultFontSize);
