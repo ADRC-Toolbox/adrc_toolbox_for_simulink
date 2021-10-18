@@ -51,8 +51,8 @@ plot(axes_1, controlError.Values.Time, reshape(controlError.Values.Data,[2001,1]
 figure(2);
 plot(axes_2, controlSignal.Values.Time, controlSignal.Values.Data, 'linewidth', 1.5);
 figure(3);
-plot(axes_3, velocity.Values.Time, reshape(velocity.Values.Data, [2001,1]), 'linewidth', 1.5, 'DisplayName', 'Output voltage');
-plot(axes_3, desiredVelocity.Values.Time, desiredVelocity.Values.Data, 'k--', 'linewidth', 1.5, 'DisplayName', 'Reference voltage');
+plot(axes_3, velocity.Values.Time, reshape(velocity.Values.Data, [2001,1]), 'linewidth', 1.5, 'DisplayName', 'Output velocity');
+plot(axes_3, desiredVelocity.Values.Time, desiredVelocity.Values.Data, 'k--', 'linewidth', 1.5, 'DisplayName', 'Reference velocity');
 %% Save figures
 saveas(fig_1, 'simulation_procedures/dc_motor_control_error', 'epsc');
 saveas(fig_2, 'simulation_procedures/dc_motor_control_signal', 'epsc');
