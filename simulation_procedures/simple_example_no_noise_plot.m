@@ -49,7 +49,7 @@ plot(axes_1, controlError.Values.Time, controlError.Values.Data, 'linewidth', 1.
 figure(2);
 plot(axes_2, controlSignal.Values.Time, controlSignal.Values.Data, 'linewidth', 1.5);
 figure(3);
-plot(axes_3, output.Values.Time, output.Values.Data, 'linewidth', 1.5, 'DisplayName', 'S1');
+plot(axes_3, output.Values.Time, output.Values.Data, 'linewidth', 1.5, 'DisplayName', 'Saturation OFF');
 
 out = out_no_noise_saturation;
 readLogsoutData;
@@ -59,8 +59,8 @@ plot(axes_1, controlError.Values.Time, controlError.Values.Data,'linewidth',1.5)
 figure(2);
 plot(axes_2, controlSignal.Values.Time, controlSignal.Values.Data,'linewidth',1.5);
 figure(3);
-plot(axes_3, output.Values.Time, output.Values.Data,'linewidth',1.5, 'DisplayName', 'S2');
-plot(axes_3, desiredOutput.Values.Time, desiredOutput.Values.Data,'k--', 'linewidth', 1.5, 'DisplayName', 'Desired output'); 
+plot(axes_3, output.Values.Time, output.Values.Data,'linewidth',1.5, 'DisplayName', 'Saturation ON');
+plot(axes_3, desiredOutput.Values.Time, desiredOutput.Values.Data,'k--', 'linewidth', 1.5, 'DisplayName', 'Reference output'); 
 
 %% Save figures
 saveas(fig_1,'simulation_procedures/no_noise_no_saturation_control_error', 'epsc');
