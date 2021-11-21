@@ -1,4 +1,0 @@
-1. Write some more tests for the linear extended state observer.
-2. Write some more tests for state feedback robust controller.
-3. Write tests for linear extended state observer simulink model.
-4. Write tests for state feedback robust controller model.
