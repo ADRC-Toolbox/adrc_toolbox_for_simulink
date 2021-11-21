@@ -105,7 +105,7 @@ Library {
       }
       WindowUuid	      "fa33cb41-c4e3-44e1-862f-f44b83cfc93b"
     }
-    BDUuid		    ""
+    BDUuid		    "324f8ca1-f3a4-4db2-a998-319cf8f9d485"
   }
   HideAutomaticNames	  on
   SequenceViewerTimePrecision 3
@@ -115,7 +115,7 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "krzys"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Aug 15 21:26:18 2021"
+  LastModifiedDate	  "Sun Nov 21 12:09:26 2021"
   RTWModifiedTimeStamp	  209573280
   ModelVersionFormat	  "%<AutoIncrement:23.0>"
   SampleTimeColors	  off
@@ -1019,7 +1019,7 @@ Library {
     Name		    "realtime_pacer_lib"
     Location		    [491, 329, 943, 760]
     SystemRect		    [0.000000, 0.000000, 0.000000, 0.000000]
-    Open		    on
+    Open		    off
     PortBlocksUseCompactNotation off
     SetExecutionDomain	    off
     ExecutionDomainType	    "Deduce"
