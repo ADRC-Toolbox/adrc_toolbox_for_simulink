@@ -1,13 +1,13 @@
 function blkStruct = slblocks
-% This function specifies that the library 'mylib'
+% This function specifies that the library 'adrc_toolbox_library'
 % should appear in the Library Browser with the 
-% name 'My Library'
+% name 'ADRC Toolbox'
 
     Browser.Library = 'adrc_toolbox_library';
-    % 'mylib' is the name of the library
+    % 'adrc_toolbox_library' is the name of the library
 
     Browser.Name = 'ADRC Toolbox';
-    % 'My Library' is the library name that appears
+    % 'ADRC Toolbox' is the library name that appears
     % in the Library Browser
 
     blkStruct.Browser = Browser;
