@@ -99,59 +99,71 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
         
         function testInputGainSourceChange(testCase)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/inputGainParameterIn', 'BlockType');
             testCase.verifyEqual(inportCount, 1);
+            testCase.verifyEqual(blockType, 'Ground');
             
             inputGainSource = testCase.maskObj.getParameter('inputGainSource');
-            inputGainSource.set('Value','External')
-            eval(testCase.maskObj.Initialization)
+            inputGainSource.set('Value', 'External')
+            eval(testCase.maskObj.Initialization);
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
-            testCase.verifyEqual(inportCount,2);
+            blockType = get_param('adrc_toolbox_library/ADRC controller/inputGainParameterIn', 'BlockType');
+            testCase.verifyEqual(inportCount, 2);
+            testCase.verifyEqual(blockType, 'Inport');
         end
         
         function testObserverBandwidthSourceChange(testCase)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/observerBandwidthIn', 'BlockType');
             testCase.verifyEqual(inportCount, 1);
+            testCase.verifyEqual(blockType, 'Ground');
             
             observerBandwidthSource = testCase.maskObj.getParameter('observerBandwidthSource');
             observerBandwidthSource.set('Value','External')
             eval(testCase.maskObj.Initialization)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/observerBandwidthIn', 'BlockType');
             testCase.verifyEqual(inportCount,2);
+            testCase.verifyEqual(blockType, 'Inport');
         end
         
         function testControllerBandwidthSourceChange(testCase)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/controllerBandwidthIn', 'BlockType');
             testCase.verifyEqual(inportCount, 1);
+            testCase.verifyEqual(blockType, 'Ground');
             
             controllerBandwidthSource = testCase.maskObj.getParameter('controllerBandwidthSource');
             controllerBandwidthSource.set('Value','External')
             eval(testCase.maskObj.Initialization);
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
-                'LookUnderMasks','on',...
-                'SearchDepth',1,...
-                'BlockType','Inport'...
+                'LookUnderMasks', 'on',...
+                'SearchDepth', 1,...
+                'BlockType', 'Inport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/controllerBandwidthIn', 'BlockType');
             testCase.verifyEqual(inportCount,2);
+            testCase.verifyEqual(blockType, 'Inport');
         end
         
         %% Saturation tab tests
@@ -190,6 +202,21 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(saturationLowerLimit.Enabled, 'on');
             testCase.verifyEqual(saturationUpperLimit.Enabled, 'on');
         end
+        
+        %% TODO!!!!!
+%         function testSaturationOnVariant(testCase)
+%             saturationEnabled = testCase.maskObj.getParameter('saturationEnabled');
+%             saturationEnabled.set('Value','on')
+%             eval(saturationEnabled.Callback);
+%             expectedSubsystem = {'adrc_toolbox_library/ADRC controller/State feedback robust controller/Saturation/Saturation on'};
+%             subsystem = find_system('adrc_toolbox_library/ADRC controller/State feedback robust controller/Saturation',...
+%                 'SearchDepth', 1,...
+%                 'LookUnderMasks', 'on'...
+%             );
+%         
+%             testCase.verifyEqual(subsystem, expectedSubsystem);
+%         end
+%%
         
         %% Anti-peaking tab
         function testDefaulDeadTimeEnabled(testCase)
@@ -232,23 +259,61 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(observerOutputChoice, defaultObserverOutputChoice);
         end
         
-        function testDefaultObserverEnabledChange(testCase)
+        function testDefaultObserverOutputEnabledChange(testCase)
             outportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks','on',...
                 'SearchDepth',1,...
                 'BlockType','Outport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/selectedObserverOutput', 'BlockType');
             testCase.verifyEqual(outportCount, 1);
+            testCase.verifyEqual(blockType, 'Terminator');
             
             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
-            observerOutputEnabled.set('Value','on')
-            eval(testCase.maskObj.Initialization)
+            observerOutputEnabled.set('Value','on');
+            eval(testCase.maskObj.Initialization);
             outportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks','on',...
                 'SearchDepth',1,...
                 'BlockType','Outport'...
             ));
+            blockType = get_param('adrc_toolbox_library/ADRC controller/selectedObserverOutput', 'BlockType');
             testCase.verifyEqual(outportCount, 2);
+            testCase.verifyEqual(blockType, 'Outport');
         end
+        
+        %% THIS DOES NOT WORK!!!
+%         function testEstimatedTotalDisturbanceObserverOutputVariant(testCase)
+%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
+%             observerOutputEnabled.set('Value','on');
+%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
+%             observerOutputChoice.set('Value','Estimated total disturbance');
+%             eval(testCase.maskObj.Initialization);
+%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Only estimated total disturbance';
+%             
+%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
+%         end
+%         
+%         function testEstimatedExtendedStateObserverOutputVariant(testCase)
+%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
+%             observerOutputEnabled.set('Value','on');
+%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
+%             observerOutputChoice.set('Value','Estimated extended state');
+%             eval(testCase.maskObj.Initialization);
+%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Whole estimated extended state';
+%             
+%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
+%         end
+%         
+%         function testEstimatedControlErrorObserverOutputVariant(testCase)
+%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
+%             observerOutputEnabled.set('Value','on');
+%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
+%             observerOutputChoice.set('Value','Estimated control error');
+%             eval(testCase.maskObj.Initialization);
+%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Only estimated control error';
+%             
+%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
+%         end
     end
 end
