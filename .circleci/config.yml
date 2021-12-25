@@ -19,8 +19,9 @@ jobs:
           event: pass
           template: success_tagged_deploy_1
       - checkout
-      - matlab/install
-      - matlab/run-tests
+      - run: 
+          name: "echo environment variables from org-global context"
+          command: echo $MY_ENV_VAR
 workflows:
   test:
     jobs:
