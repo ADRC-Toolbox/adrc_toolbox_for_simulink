@@ -131,7 +131,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(blockType, 'Ground');
             
             observerBandwidthSource = testCase.maskObj.getParameter('observerBandwidthSource');
-            observerBandwidthSource.set('Value','External')
+            observerBandwidthSource.set('Value', 'External')
             eval(testCase.maskObj.Initialization)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks', 'on',...
