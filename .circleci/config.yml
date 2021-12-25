@@ -12,15 +12,15 @@ jobs:
     machine:
       image: ubuntu-2004:202101-01
     steps:
+      - checkout
+      - matlab/install
+      - matlab/run-tests
       - slack/notify:
           event: fail
           template: basic_fail_1
       - slack/notify:
           event: pass
           template: basic_success_1
-      - checkout
-      - matlab/install
-      - matlab/run-tests
 workflows:
   test:
     jobs:
