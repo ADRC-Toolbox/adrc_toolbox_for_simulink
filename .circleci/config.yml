@@ -1,12 +1,21 @@
+version: 2.1
+orbs: 
+  matlab: mathworks/matlab@0.4.0
 jobs:
-  build:
+  run-adrc-toolbox-tests:
+    release:
+          version:
+            description: "MATLAB version"
+            default: "R2021a"
+            type: string
     machine:
-      image: 'ubuntu-1604:201903-01'
+      image: ubuntu-2004:202101-01
     steps:
       - checkout
       - matlab/install
       - matlab/run-command:
           command: tests/runTests
-orbs: 
-  matlab: mathworks/matlab@0.4.0
-version: 2.1
+workflows:
+  test:
+    jobs:
+      - run-adrc-toolbox-tests
