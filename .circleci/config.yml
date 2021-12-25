@@ -24,6 +24,6 @@ jobs:
 workflows:
   test:
     jobs:
-      - run-adrc-toolbox-tests
+      - run-adrc-toolbox-tests:
         context:
           - adrc-toolbox
