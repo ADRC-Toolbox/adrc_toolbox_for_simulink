@@ -3,10 +3,11 @@ orbs:
   matlab: mathworks/matlab@0.4.0
 jobs:
   run-adrc-toolbox-tests:
-    release:
-        description: "MATLAB version"
-        default: "R2021a"
-        type: string
+    parameters:
+        release:
+            description: "MATLAB version"
+            default: "R2021a"
+            type: string
     machine:
       image: ubuntu-2004:202101-01
     steps:
