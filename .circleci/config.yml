@@ -1,6 +1,7 @@
 version: 2.1
 orbs: 
   matlab: mathworks/matlab@0.4.0
+  slack: circleci/slack@4.5.1
 jobs:
   run-adrc-toolbox-tests:
     parameters:
@@ -11,6 +12,12 @@ jobs:
     machine:
       image: ubuntu-2004:202101-01
     steps:
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
       - checkout
       - matlab/install
       - matlab/run-tests
