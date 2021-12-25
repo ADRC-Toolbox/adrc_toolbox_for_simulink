@@ -203,21 +203,6 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(saturationUpperLimit.Enabled, 'on');
         end
         
-        %% TODO!!!!!
-%         function testSaturationOnVariant(testCase)
-%             saturationEnabled = testCase.maskObj.getParameter('saturationEnabled');
-%             saturationEnabled.set('Value','on')
-%             eval(saturationEnabled.Callback);
-%             expectedSubsystem = {'adrc_toolbox_library/ADRC controller/State feedback robust controller/Saturation/Saturation on'};
-%             subsystem = find_system('adrc_toolbox_library/ADRC controller/State feedback robust controller/Saturation',...
-%                 'SearchDepth', 1,...
-%                 'LookUnderMasks', 'on'...
-%             );
-%         
-%             testCase.verifyEqual(subsystem, expectedSubsystem);
-%         end
-%%
-        
         %% Anti-peaking tab
         function testDefaulDeadTimeEnabled(testCase)
             deadTimeEnabled = testCase.maskObj.getParameter('deadTimeEnabled').Value;
