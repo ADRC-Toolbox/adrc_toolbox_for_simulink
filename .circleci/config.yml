@@ -4,10 +4,9 @@ orbs:
 jobs:
   run-adrc-toolbox-tests:
     release:
-          version:
-            description: "MATLAB version"
-            default: "R2021a"
-            type: string
+        description: "MATLAB version"
+        default: "R2021a"
+        type: string
     machine:
       image: ubuntu-2004:202101-01
     steps:
