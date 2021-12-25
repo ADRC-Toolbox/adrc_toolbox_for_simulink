@@ -266,39 +266,5 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(outportCount, 2);
             testCase.verifyEqual(blockType, 'Outport');
         end
-        
-        %% THIS DOES NOT WORK!!!
-%         function testEstimatedTotalDisturbanceObserverOutputVariant(testCase)
-%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
-%             observerOutputEnabled.set('Value','on');
-%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
-%             observerOutputChoice.set('Value','Estimated total disturbance');
-%             eval(testCase.maskObj.Initialization);
-%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Only estimated total disturbance';
-%             
-%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
-%         end
-%         
-%         function testEstimatedExtendedStateObserverOutputVariant(testCase)
-%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
-%             observerOutputEnabled.set('Value','on');
-%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
-%             observerOutputChoice.set('Value','Estimated extended state');
-%             eval(testCase.maskObj.Initialization);
-%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Whole estimated extended state';
-%             
-%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
-%         end
-%         
-%         function testEstimatedControlErrorObserverOutputVariant(testCase)
-%             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
-%             observerOutputEnabled.set('Value','on');
-%             observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
-%             observerOutputChoice.set('Value','Estimated control error');
-%             eval(testCase.maskObj.Initialization);
-%             model = 'adrc_toolbox_library/ADRC controller/Observer output/Only estimated control error';
-%             
-%             testCase.verifyEqual(find_system(model, 'SearchDepth', 0), {model});
-%         end
     end
 end
