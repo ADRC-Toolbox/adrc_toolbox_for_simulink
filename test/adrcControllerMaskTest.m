@@ -25,7 +25,8 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             testCase.verifyEqual(numel(testCase.maskObj.Parameters), parameterCount)
         end
         
-        function testParameterOrder(testCase)
+        function testParameterNames(testCase)
+            parameterCount = numel(testCase.maskObj.Parameters);
             expectedParameterNames = {'dynamicsOrder',...
                 'inputGainParameter',...
                 'inputGainSource',...
@@ -43,8 +44,9 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             parameterNames = cell(1, numel(testCase.maskObj.Parameters));
             [parameterNames{:}] = testCase.maskObj.Parameters.Name;
+            matchingParameterCount = sum(matches(expectedParameterNames, parameterNames));
             
-            testCase.verifyEqual(parameterNames, expectedParameterNames)
+            testCase.verifyEqual(parameterCount, matchingParameterCount)
         end
         
         %% Parameters tab tests
@@ -245,6 +247,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
         end
         
         function testDefaultObserverOutputEnabledChange(testCase)
+            observerOutputChoice = testCase.maskObj.getParameter('observerOutputChoice');
             outportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks','on',...
                 'SearchDepth',1,...
@@ -253,9 +256,11 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             blockType = get_param('adrc_toolbox_library/ADRC controller/selectedObserverOutput', 'BlockType');
             testCase.verifyEqual(outportCount, 1);
             testCase.verifyEqual(blockType, 'Terminator');
+            testCase.verifyEqual(observerOutputChoice.Enabled, 'off');
             
             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
             observerOutputEnabled.set('Value','on');
+            eval(observerOutputEnabled.Callback);
             eval(testCase.maskObj.Initialization);
             outportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks','on',...
@@ -263,6 +268,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
                 'BlockType','Outport'...
             ));
             blockType = get_param('adrc_toolbox_library/ADRC controller/selectedObserverOutput', 'BlockType');
+            testCase.verifyEqual(observerOutputChoice.Enabled, 'on');
             testCase.verifyEqual(outportCount, 2);
             testCase.verifyEqual(blockType, 'Outport');
         end
