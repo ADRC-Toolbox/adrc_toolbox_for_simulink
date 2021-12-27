@@ -1,8 +1,4 @@
-classdef saturationVariantTest < matlab.unittest.TestCase
-    properties
-        maskObj
-    end
-    
+classdef saturationVariantTest < matlab.unittest.TestCase  
     methods(TestMethodSetup)   
         function initializeMaskObject(testCase)
             load_system('adrc_toolbox_library');

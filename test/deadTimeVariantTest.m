@@ -1,8 +1,4 @@
 classdef deadTimeVariantTest < matlab.unittest.TestCase
-    properties
-        maskObj
-    end
-    
     methods(TestMethodSetup)   
         function initializeMaskObject(testCase)
             load_system('adrc_toolbox_library');
