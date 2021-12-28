@@ -6,51 +6,28 @@ classdef dcMotorTest < matlab.unittest.TestCase
     methods(TestClassSetup)
         function initializeDcMotor(testCase)
             load_system('dc_motor');
-            testCase.maskObj = Simulink.Mask.get('simple_example/ADRC controller');
-            testCase.results = sim('simple_example');
+            testCase.maskObj = Simulink.Mask.get('dc_motor/ADRC controller');
         end
     end
     
     methods(TestClassTeardown)
-        function closeSimpleExample(testCase)
-            close_system('simple_example', 0);
+        function closeDcMotor(testCase)
+            close_system('dc_motor', 0);
         end
     end
     
-    methods (Test)
-        %% Results
-        function testFinalControlErrorValue(testCase)
-            controlError = get(testCase.results.logsout, 'controlError');
-            lastSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 1;
-            meanFinalControlError = sum(controlError.Values.Data .* lastSecondSamples) / sum(lastSecondSamples);
-            maxMeanFinalControlError = 1e-05;
-            
-            testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
-        end
-        
-        function testSaturation(testCase)
-            controlSignal = get(testCase.results.logsout, 'controlSignal');
-            maxControlSignal = max(controlSignal.Values.Data);
-            minControlSignal = min(controlSignal.Values.Data);
-            controlSignalUpperLimit = 100;
-            controlSignalLowerLimit = -100;
-            
-
-            testCase.verifyLessThanOrEqual(maxControlSignal, controlSignalUpperLimit);
-            testCase.verifyGreaterThanOrEqual(minControlSignal, controlSignalLowerLimit);
-        end
-        
+    methods (Test)   
         %% Default mask values
         function testDefaultDynamicsOrder(testCase)
             dynamicsOrderParameter = str2double(testCase.maskObj.getParameter('dynamicsOrder').Value);
-            defaultDynamicsOrder = 4;
+            defaultDynamicsOrder = 2;
             
             testCase.verifyEqual(dynamicsOrderParameter, defaultDynamicsOrder);
         end
         
         function testDefaultInputGainValue(testCase)
             inputGainValue = str2double(testCase.maskObj.getParameter('inputGainParameter').Value);
-            defaultInputGain = 0.8;
+            defaultInputGain = 600;
             
             testCase.verifyEqual(inputGainValue, defaultInputGain);
         end
@@ -64,7 +41,7 @@ classdef dcMotorTest < matlab.unittest.TestCase
         
         function testDefaultObserverBandwidth(testCase)
             observerBandwidth = str2double(testCase.maskObj.getParameter('observerBandwidth').Value);
-            defaultObserverBandwidth = 50;
+            defaultObserverBandwidth = 90;
             
             testCase.verifyEqual(observerBandwidth, defaultObserverBandwidth);
         end
@@ -78,7 +55,7 @@ classdef dcMotorTest < matlab.unittest.TestCase
         
         function testDefaultControllerBandwidth(testCase)
             controllerBandwidth = str2double(testCase.maskObj.getParameter('controllerBandwidth').Value);
-            defaultControllerBandwidth = 5;
+            defaultControllerBandwidth = 40;
             
             testCase.verifyEqual(controllerBandwidth, defaultControllerBandwidth);
         end
@@ -125,69 +102,45 @@ classdef dcMotorTest < matlab.unittest.TestCase
             testCase.verifyEqual(observerOutputEnabled, defaultObserverOutputEnabled);
         end
         
-        %% Simulation parameters
-        function testSimulationTime(testCase)
-            simulationTime = get_param('simple_example', 'StopTime');
-            testCase.verifyEqual(simulationTime, '20');
-        end
-        
-        %% Step parameters
+        %% Reference parameters
         function testDefaultDesiredOutputStepTime(testCase)
-            stepTime = get_param('simple_example/Step', 'Time');
-            testCase.verifyEqual(stepTime, '1');
+            stepTime = get_param('dc_motor/Step1', 'Time');
+            testCase.verifyEqual(stepTime, '3');
         end
         
         function testDefaultDesiredOutputInitialValue(testCase)
-            initialValue = get_param('simple_example/Step', 'Before');
+            initialValue = get_param('dc_motor/Step1', 'Before');
             testCase.verifyEqual(initialValue, '0');
         end
         
         function testDefaultDesiredOutputFinalValue(testCase)
-            initialValue = get_param('simple_example/Step', 'After');
-            testCase.verifyEqual(initialValue, '1');
+            finalValue = get_param('dc_motor/Step1', 'After');
+            testCase.verifyEqual(finalValue, '15');
         end
         
-        %% Disturbance parameters
-        function testDefaultDisturbanceStepTime(testCase)
-            stepTime = get_param('simple_example/Disturbance', 'Time');
-            testCase.verifyEqual(stepTime, '10');
+        function testSinusoidalReferenceMultiplierStepTime(testCase)
+            stepTime = get_param('dc_motor/Step2', 'Time');
+            testCase.verifyEqual(stepTime, '3');
         end
         
-        function testDefaultDisturbanceInitialValue(testCase)
-            initialValue = get_param('simple_example/Step', 'Before');
+        function testSinusoidalReferenceMultiplierInitialValue(testCase)
+            initialValue = get_param('dc_motor/Step2', 'Before');
             testCase.verifyEqual(initialValue, '0');
         end
         
-        function testDefaultDisturbanceFinalValue(testCase)
-            initialValue = get_param('simple_example/Disturbance', 'After');
-            testCase.verifyEqual(initialValue, '70');
+        function testSinusoidalReferenceMultiplierFinalValue(testCase)
+            finalValue = get_param('dc_motor/Step2', 'After');
+            testCase.verifyEqual(finalValue, '1');
         end
         
-        %% Noise parameters
-        function testDefaultMeasurementNoisePower(testCase)
-            noisePower = get_param('simple_example/Measurement Noise', 'Cov');
-            testCase.verifyEqual(noisePower, '1e-14');
+        function testSinusoidalReferenceAmplitude(testCase)
+            sineAmplitude = get_param('dc_motor/Sine Wave', 'Amplitude');
+            testCase.verifyEqual(sineAmplitude, '5');
         end
         
-        function testDefaultMeasurementSampleTime(testCase)
-            sampleTime = get_param('simple_example/Measurement Noise', 'Ts');
-            testCase.verifyEqual(sampleTime, '0.01');
-        end
-        
-        function testDefaultMeasurementNoiseSeed(testCase)
-            seed = get_param('simple_example/Measurement Noise', 'seed');
-            testCase.verifyEqual(seed, '[23341]');
-        end
-        
-        %% Control plant parameters
-        function testDefaultTransferFunctionNumerator(testCase)
-            numerator = get_param('simple_example/Transfer Fcn', 'Numerator');
-            testCase.verifyEqual(numerator, '[1]')
-        end
-        
-        function testDefaultTransferFunctionDenominator(testCase)
-            denominator = get_param('simple_example/Transfer Fcn', 'Denominator');
-            testCase.verifyEqual(denominator, '[1 4 6 4 1]')
+        function testSinusoidalReferenceFrequency(testCase)
+            sineFrequency = get_param('dc_motor/Sine Wave', 'Frequency');
+            testCase.verifyEqual(sineFrequency, '6.28/4');
         end
     end
 end

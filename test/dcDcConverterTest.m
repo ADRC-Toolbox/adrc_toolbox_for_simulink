@@ -13,7 +13,7 @@ classdef dcDcConverterTest < matlab.unittest.TestCase
     end
     
     methods(TestClassTeardown)
-        function closeSimpleExample(testCase)
+        function closeDcDcConverter(testCase)
             close_system('dc_dc_converter', 0);
         end
     end
