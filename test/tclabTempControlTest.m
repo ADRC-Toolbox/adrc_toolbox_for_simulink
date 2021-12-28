@@ -1,80 +1,35 @@
-classdef tanksTest < matlab.unittest.TestCase
+classdef tclabTempControlTest < matlab.unittest.TestCase
     properties
         maskObj1
         maskObj2
-        results
     end
     
     methods(TestClassSetup)
-        function initializeTanks(testCase)
-            load_system('tanks');
-            testCase.maskObj1 = Simulink.Mask.get('tanks/ADRC controller1');
-            testCase.maskObj2 = Simulink.Mask.get('tanks/ADRC controller2');
-            testCase.results = sim('tanks');
+        function initializeTclabTempControl(testCase)
+            load_system('tclab_temp_control');
+            testCase.maskObj1 = Simulink.Mask.get('tclab_temp_control/ADRC controller1');
+            testCase.maskObj2 = Simulink.Mask.get('tclab_temp_control/ADRC controller2');
         end
     end
     
     methods(TestClassTeardown)
-        function closeTanks(testCase)
-            close_system('tanks', 0);
+        function closeTclabTempControl(testCase)
+            close_system('tclab_temp_control', 0);
         end
     end
     
-    methods (Test)
-        %% Results
-        function testFinalControlError1Value(testCase)
-            controlError = get(testCase.results.logsout, 'controlError1');
-            lastTenSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 10;
-            meanFinalControlError = sum(controlError.Values.Data .* lastTenSecondSamples) / sum(lastTenSecondSamples);
-            maxMeanFinalControlError = 1e-06;
-            
-            testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
-        end
-        
-        function testFinalControlError2Value(testCase)
-            controlError = get(testCase.results.logsout, 'controlError2');
-            lastTenSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 10;
-            meanFinalControlError = sum(controlError.Values.Data .* lastTenSecondSamples) / sum(lastTenSecondSamples);
-            maxMeanFinalControlError = 1e-05;
-            
-            testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
-        end
-        
-        function testSaturation1(testCase)
-            controlSignal = get(testCase.results.logsout, 'controlSignal1');
-            maxControlSignal = max(controlSignal.Values.Data);
-            minControlSignal = min(controlSignal.Values.Data);
-            controlSignalUpperLimit = 4e-4;
-            controlSignalLowerLimit = 0;
-            
-
-            testCase.verifyLessThanOrEqual(maxControlSignal, controlSignalUpperLimit);
-            testCase.verifyGreaterThanOrEqual(minControlSignal, controlSignalLowerLimit);
-        end
-        
-        function testSaturation2(testCase)
-            controlSignal = get(testCase.results.logsout, 'controlSignal2');
-            maxControlSignal = max(controlSignal.Values.Data);
-            minControlSignal = min(controlSignal.Values.Data);
-            controlSignalUpperLimit = 4e-4;
-            controlSignalLowerLimit = 0;
-            
-
-            testCase.verifyLessThanOrEqual(maxControlSignal, controlSignalUpperLimit);
-            testCase.verifyGreaterThanOrEqual(minControlSignal, controlSignalLowerLimit);
-        end
-        
+    methods (Test)   
         %% Default mask values for ADRC controller 1
         function testDefaultDynamicsOrder1(testCase)
             dynamicsOrderParameter = str2double(testCase.maskObj1.getParameter('dynamicsOrder').Value);
-            defaultDynamicsOrder = 2;
+            defaultDynamicsOrder = 1;
             
             testCase.verifyEqual(dynamicsOrderParameter, defaultDynamicsOrder);
         end
         
         function testDefaultInputGainValue1(testCase)
             inputGainValue = str2double(testCase.maskObj1.getParameter('inputGainParameter').Value);
-            defaultInputGain = 0.8;
+            defaultInputGain = 0.4;
             
             testCase.verifyEqual(inputGainValue, defaultInputGain);
         end
@@ -88,7 +43,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultObserverBandwidth1(testCase)
             observerBandwidth = str2double(testCase.maskObj1.getParameter('observerBandwidth').Value);
-            defaultObserverBandwidth = 3;
+            defaultObserverBandwidth = 7;
             
             testCase.verifyEqual(observerBandwidth, defaultObserverBandwidth);
         end
@@ -102,7 +57,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultControllerBandwidth1(testCase)
             controllerBandwidth = str2double(testCase.maskObj1.getParameter('controllerBandwidth').Value);
-            defaultControllerBandwidth = 0.3;
+            defaultControllerBandwidth = 2;
             
             testCase.verifyEqual(controllerBandwidth, defaultControllerBandwidth);
         end
@@ -123,7 +78,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultSaturationUpperLimit1(testCase)
             saturationUpperLimit = str2double(testCase.maskObj1.getParameter('UpperLimit').Value);
-            defaultSaturationUpperLimit = 4e-4;
+            defaultSaturationUpperLimit = 100;
             
             testCase.verifyEqual(saturationUpperLimit, defaultSaturationUpperLimit);
         end
@@ -149,17 +104,17 @@ classdef tanksTest < matlab.unittest.TestCase
             testCase.verifyEqual(observerOutputEnabled, defaultObserverOutputEnabled);
         end
         
-        %% Default mask values for ADRC controller 2
+                %% Default mask values for ADRC controller 2
         function testDefaultDynamicsOrder2(testCase)
             dynamicsOrderParameter = str2double(testCase.maskObj2.getParameter('dynamicsOrder').Value);
-            defaultDynamicsOrder = 2;
+            defaultDynamicsOrder = 1;
             
             testCase.verifyEqual(dynamicsOrderParameter, defaultDynamicsOrder);
         end
         
         function testDefaultInputGainValue2(testCase)
             inputGainValue = str2double(testCase.maskObj2.getParameter('inputGainParameter').Value);
-            defaultInputGain = 1;
+            defaultInputGain = 0.4;
             
             testCase.verifyEqual(inputGainValue, defaultInputGain);
         end
@@ -173,7 +128,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultObserverBandwidth2(testCase)
             observerBandwidth = str2double(testCase.maskObj2.getParameter('observerBandwidth').Value);
-            defaultObserverBandwidth = 1.2;
+            defaultObserverBandwidth = 7;
             
             testCase.verifyEqual(observerBandwidth, defaultObserverBandwidth);
         end
@@ -187,7 +142,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultControllerBandwidth2(testCase)
             controllerBandwidth = str2double(testCase.maskObj2.getParameter('controllerBandwidth').Value);
-            defaultControllerBandwidth = 0.12;
+            defaultControllerBandwidth = 2;
             
             testCase.verifyEqual(controllerBandwidth, defaultControllerBandwidth);
         end
@@ -208,7 +163,7 @@ classdef tanksTest < matlab.unittest.TestCase
         
         function testDefaultSaturationUpperLimit2(testCase)
             saturationUpperLimit = str2double(testCase.maskObj2.getParameter('UpperLimit').Value);
-            defaultSaturationUpperLimit = 4e-4;
+            defaultSaturationUpperLimit = 100;
             
             testCase.verifyEqual(saturationUpperLimit, defaultSaturationUpperLimit);
         end
@@ -234,95 +189,15 @@ classdef tanksTest < matlab.unittest.TestCase
             testCase.verifyEqual(observerOutputEnabled, defaultObserverOutputEnabled);
         end
         
-        %% Simulation parameters
-        function testSimulationTime(testCase)
-            simulationTime = get_param('tanks', 'StopTime');
-            testCase.verifyEqual(simulationTime, '200');
-        end
-        
         %% Reference parameters
-        function testDefaultSetpoint1(testCase)
-            defaultSetpointValue = get_param('tanks/Constant1', 'Value');
-            testCase.verifyEqual(defaultSetpointValue, '0.2');
+        function testDefaultSetpointValue1(testCase)
+            setpointValue = get_param('tclab_temp_control/Constant1', 'Value');
+            testCase.verifyEqual(setpointValue, '35');
         end
         
-        function testDefaultSetpoint21(testCase)
-            defaultSetpointValue = get_param('tanks/Constant2', 'Value');
-            testCase.verifyEqual(defaultSetpointValue, '0.35');
-        end
-        
-        %% External disturbance 1 parameters 
-        function testDefaultDisturbanceStepTime1(testCase)
-            stepTime = get_param('tanks/ExternalDisturbance1', 'Time');
-            testCase.verifyEqual(stepTime, '90');
-        end
-        
-        function testDefaultDisturbanceInitialValue1(testCase)
-            initialValue = get_param('tanks/ExternalDisturbance1', 'Before');
-            testCase.verifyEqual(initialValue, '0');
-        end
-        
-        function testDefaultDisturbanceFinalValue1(testCase)
-            initialValue = get_param('tanks/ExternalDisturbance1', 'After');
-            testCase.verifyEqual(initialValue, '-1.4e-4');
-        end
-        
-        %% External disturbance 2 parameters 
-        function testDefaultDisturbanceStepTime2(testCase)
-            stepTime = get_param('tanks/ExternalDisturbance2', 'Time');
-            testCase.verifyEqual(stepTime, '130');
-        end
-        
-        function testDefaultDisturbanceInitialValue2(testCase)
-            initialValue = get_param('tanks/ExternalDisturbance2', 'Before');
-            testCase.verifyEqual(initialValue, '0');
-        end
-        
-        function testDefaultDisturbanceFinalValue2(testCase)
-            initialValue = get_param('tanks/ExternalDisturbance2', 'After');
-            testCase.verifyEqual(initialValue, '-0.7e-4');
-        end
-%         
-        %% Noise parameters for output 1
-        function testDefaultMeasurementNoiseMean1(testCase)
-            noiseMean = get_param('tanks/CoupledTanksSystem/SensorNoise1', 'Mean');
-            testCase.verifyEqual(noiseMean, '0');
-        end
-        
-        function testDefaultMeasurementNoiseVariance1(testCase)
-            noiseVariance = get_param('tanks/CoupledTanksSystem/SensorNoise1', 'Variance');
-            testCase.verifyEqual(noiseVariance, '0.8e-10');
-        end
-        
-        function testDefaultMeasurementSampleTime1(testCase)
-            sampleTime = get_param('tanks/CoupledTanksSystem/SensorNoise1', 'SampleTime');
-            testCase.verifyEqual(sampleTime, '0.1');
-        end
-        
-        function testDefaultMeasurementNoiseSeed1(testCase)
-            seed = get_param('tanks/CoupledTanksSystem/SensorNoise1', 'Seed');
-            testCase.verifyEqual(seed, '0');
-        end
-        
-        %% Noise parameters for output 2
-        function testDefaultMeasurementNoiseMean2(testCase)
-            noiseMean = get_param('tanks/CoupledTanksSystem/SensorNoise2', 'Mean');
-            testCase.verifyEqual(noiseMean, '0');
-        end
-        
-        function testDefaultMeasurementNoiseVariance2(testCase)
-            noiseVariance = get_param('tanks/CoupledTanksSystem/SensorNoise2', 'Variance');
-            testCase.verifyEqual(noiseVariance, '0.8e-10');
-        end
-        
-        function testDefaultMeasurementSampleTime2(testCase)
-            sampleTime = get_param('tanks/CoupledTanksSystem/SensorNoise2', 'SampleTime');
-            testCase.verifyEqual(sampleTime, '0.1');
-        end
-        
-        function testDefaultMeasurementNoiseSeed2(testCase)
-            seed = get_param('tanks/CoupledTanksSystem/SensorNoise2', 'Seed');
-            testCase.verifyEqual(seed, '0');
+        function testDefaultSetpointValue2(testCase)
+            setpointValue = get_param('tclab_temp_control/Constant2', 'Value');
+            testCase.verifyEqual(setpointValue, '45');
         end
     end
 end
