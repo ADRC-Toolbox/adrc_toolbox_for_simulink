@@ -1,2 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<Info Type="Shutdown" Visible="0" Icon="" File="exitFcn.m" Name="exitFcn" />
+<Info Type="Shutdown" Visible="0" Icon="" File="config/export_selected_files_to_2018b.m" Name="exitFcn">
+    <Extension Value="060492dd-e8e2-43a5-a47e-d6aede81b735" Name="StartUpPrev" />
+</Info>
