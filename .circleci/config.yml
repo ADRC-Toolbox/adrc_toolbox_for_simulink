@@ -12,6 +12,7 @@ jobs:
     machine:
       image: ubuntu-2004:202101-01
     steps:
+      - no_output_timeout: 20m
       - checkout
       - matlab/install
       - matlab/run-tests
