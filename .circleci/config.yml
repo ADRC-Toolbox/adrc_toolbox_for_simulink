@@ -12,10 +12,10 @@ jobs:
     machine:
       image: ubuntu-2004:202101-01
     steps:
-      - no_output_timeout: 20m
       - checkout
       - matlab/install
-      - matlab/run-tests
+      - matlab/run-tests:
+          no_output_timeout: 30m
       - slack/notify:
           event: fail
           template: basic_fail_1
