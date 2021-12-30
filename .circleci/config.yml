@@ -14,8 +14,7 @@ jobs:
     steps:
       - checkout
       - matlab/install
-      - matlab/run-tests:
-          no_output_timeout: 30m
+      - matlab/run-tests
       - slack/notify:
           event: fail
           template: basic_fail_1
