@@ -29,6 +29,19 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
             testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
         end
         
+        function testFinalTotalDisturbanceEstimationErrorValue(testCase)
+            realTotalDisturbance = get(testCase.results.logsout, 'realTotalDisturbance');
+            realTotalDisturbanceValues = realTotalDisturbance.Values.Data;
+            estimatedTotalDisturbance = get(testCase.results.logsout, 'estimatedTotalDisturbance');
+            estimatedTotalDisturbanceValues = estimatedTotalDisturbance.Values.Data;
+            totalDisturbanceEstimationError = realTotalDisturbanceValues - estimatedTotalDisturbanceValues;
+            lastSecondSamples = realTotalDisturbance.Values.Time > realTotalDisturbance.Values.Time(end) - 1;
+            meanFinalTotalDisturbanceEstimationError = sum(abs(totalDisturbanceEstimationError) .* lastSecondSamples) / sum(lastSecondSamples);
+            maxMeanFinalTotalDisturbanceEstimationError = 5;
+            
+            testCase.verifyLessThan(meanFinalTotalDisturbanceEstimationError, maxMeanFinalTotalDisturbanceEstimationError)
+        end
+        
         function testSaturation(testCase)
             controlSignal = get(testCase.results.logsout, 'controlSignal');
             maxControlSignal = max(controlSignal.Values.Data);
@@ -52,13 +65,7 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
         function testDefaultInputGainValue(testCase)
             inputGainValue = get_param('simple_example_extended/hat_b', 'Value');
             testCase.verifyEqual(inputGainValue, '0.8');
-        end        
-%         function testDefaultInputGainValue(testCase)
-%             inputGainValue = str2double(testCase.maskObj.getParameter('inputGainParameter').Value);
-%             defaultInputGain = 0.8;
-%             
-%             testCase.verifyEqual(inputGainValue, defaultInputGain);
-%         end
+        end
         
         function testDefaultInputGainSource(testCase)
             inputGainSource = testCase.maskObj.getParameter('inputGainSource').Value;
@@ -70,13 +77,7 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
         function testDefaultObserverBandwidth(testCase)
             observerBandwidth = get_param('simple_example_extended/omega_o', 'Value');
             testCase.verifyEqual(observerBandwidth, '50');
-        end        
-%         function testDefaultObserverBandwidth(testCase)
-%             observerBandwidth = str2double(testCase.maskObj.getParameter('observerBandwidth').Value);
-%             defaultObserverBandwidth = 50;
-%             
-%             testCase.verifyEqual(observerBandwidth, defaultObserverBandwidth);
-%         end
+        end
         
         function testDefaultObserverBandwidthSource(testCase)
             observerBandwidthSource = testCase.maskObj.getParameter('observerBandwidthSource').Value;
@@ -89,12 +90,6 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
             controllerBandwidth = get_param('simple_example_extended/omega_c', 'Value');
             testCase.verifyEqual(controllerBandwidth, '5');
         end
-%         function testDefaultControllerBandwidth(testCase)
-%             controllerBandwidth = str2double(testCase.maskObj.getParameter('controllerBandwidth').Value);
-%             defaultControllerBandwidth = 5;
-%             
-%             testCase.verifyEqual(controllerBandwidth, defaultControllerBandwidth);
-%         end
         
         function testDefaultControllerBandwidthSource(testCase)
             controllerBandwidthSource = testCase.maskObj.getParameter('observerBandwidthSource').Value;
