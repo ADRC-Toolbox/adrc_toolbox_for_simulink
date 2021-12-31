@@ -25,8 +25,8 @@ classdef tanksTest < matlab.unittest.TestCase
         function testFinalControlError1Value(testCase)
             controlError = get(testCase.results.logsout, 'controlError1');
             lastTenSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 10;
-            meanFinalControlError = sum(controlError.Values.Data .* lastTenSecondSamples) / sum(lastTenSecondSamples);
-            maxMeanFinalControlError = 1e-06;
+            meanFinalControlError = sum(abs(controlError.Values.Data) .* lastTenSecondSamples) / sum(lastTenSecondSamples);
+            maxMeanFinalControlError = 1e-05;
             
             testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
         end
@@ -34,8 +34,8 @@ classdef tanksTest < matlab.unittest.TestCase
         function testFinalControlError2Value(testCase)
             controlError = get(testCase.results.logsout, 'controlError2');
             lastTenSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 10;
-            meanFinalControlError = sum(controlError.Values.Data .* lastTenSecondSamples) / sum(lastTenSecondSamples);
-            maxMeanFinalControlError = 1e-05;
+            meanFinalControlError = sum(abs(controlError.Values.Data) .* lastTenSecondSamples) / sum(lastTenSecondSamples);
+            maxMeanFinalControlError = 2e-05;
             
             testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
         end
