@@ -23,7 +23,7 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
         function testFinalControlErrorValue(testCase)
             controlError = get(testCase.results.logsout, 'controlError');
             lastSecondSamples = controlError.Values.Time > controlError.Values.Time(end) - 1;
-            meanFinalControlError = sum(controlError.Values.Data .* lastSecondSamples) / sum(lastSecondSamples);
+            meanFinalControlError = sum(abs(controlError.Values.Data) .* lastSecondSamples) / sum(lastSecondSamples);
             maxMeanFinalControlError = 1e-05;
             
             testCase.verifyLessThan(meanFinalControlError, maxMeanFinalControlError)
@@ -49,7 +49,6 @@ classdef simpleExampleExtendedTest < matlab.unittest.TestCase
             controlSignalUpperLimit = 100;
             controlSignalLowerLimit = -100;
             
-
             testCase.verifyLessThanOrEqual(maxControlSignal, controlSignalUpperLimit);
             testCase.verifyGreaterThanOrEqual(minControlSignal, controlSignalLowerLimit);
         end
