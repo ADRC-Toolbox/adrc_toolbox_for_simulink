@@ -9,6 +9,7 @@
 *.ini
 *.zip
 *v2017*
+*.r2018b*
 
 data_analysis/slprj/
 slprj/
