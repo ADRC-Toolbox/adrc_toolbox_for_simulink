@@ -10,7 +10,7 @@ block.RegBlockMethod('Terminate',@Terminate);
 
 function Start(block)
 colors=lines;
-cla; box on; legend;
+cla; box on;
 for i=1:block.DialogPrm(1).Data
     eval(['global h' num2str(i)])
     eval(['h' num2str(i) '=animatedline(''color'',[' num2str(colors(i,:)) ']);'])
@@ -30,3 +30,8 @@ function Terminate(block)
 for i=1:block.DialogPrm(1).Data
     eval(['clear global h' num2str(i)])
 end
+
+legend('desiredOutputXY','outputXY'); grid on;
+title('Control task realization in Cartesian space');
+ylabel('Y [m]');
+xlabel('X [m]');
