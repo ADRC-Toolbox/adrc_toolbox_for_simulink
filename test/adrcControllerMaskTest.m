@@ -111,6 +111,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             inputGainSource = testCase.maskObj.getParameter('inputGainSource');
             inputGainSource.set('Value', 'External')
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(testCase.maskObj.Initialization);
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks', 'on',...
@@ -134,6 +135,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             observerBandwidthSource = testCase.maskObj.getParameter('observerBandwidthSource');
             observerBandwidthSource.set('Value', 'External')
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(testCase.maskObj.Initialization)
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks', 'on',...
@@ -157,6 +159,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             controllerBandwidthSource = testCase.maskObj.getParameter('controllerBandwidthSource');
             controllerBandwidthSource.set('Value','External')
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(testCase.maskObj.Initialization);
             inportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
                 'LookUnderMasks', 'on',...
@@ -198,6 +201,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             saturationEnabled = testCase.maskObj.getParameter('saturationEnabled');
             saturationEnabled.set('Value','on')
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(saturationEnabled.Callback);
             saturationLowerLimit = testCase.maskObj.getParameter('LowerLimit');
             saturationUpperLimit = testCase.maskObj.getParameter('UpperLimit');
@@ -226,6 +230,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             deadTimeEnabled = testCase.maskObj.getParameter('deadTimeEnabled');
             deadTimeEnabled.set('Value','on')
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(deadTimeEnabled.Callback);
             deadTime = testCase.maskObj.getParameter('deadTime');
             testCase.verifyEqual(deadTime.Enabled, 'on');
@@ -260,6 +265,7 @@ classdef adrcControllerMaskTest < matlab.unittest.TestCase
             
             observerOutputEnabled = testCase.maskObj.getParameter('observerOutputEnabled');
             observerOutputEnabled.set('Value','on');
+            set_param(gcs,'CurrentBlock','ADRC controller');
             eval(observerOutputEnabled.Callback);
             eval(testCase.maskObj.Initialization);
             outportCount = numel(find_system('adrc_toolbox_library/ADRC controller',...
